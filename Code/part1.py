@@ -18,7 +18,6 @@ def create_v(set_words,all_words):
     len(all_words)=n
     all_words is all the words that appear in the trainingset
     '''
-    #all_words=real_train.keys()
     
     #creating input vector and output vectors
     #v is input: nxm
@@ -98,7 +97,7 @@ def main():
     #Create input vector v: nxm=len(all_words) x count
 
     v_train=create_v(trainingset_words,all_words)
-    v_train = vstack((ones((1, v_train.shape[1])), v_train))
+
     
     #Create output vector y
     #y is output: jxm=2xm = #possible outputs (real or fake) x #examples 
@@ -121,7 +120,6 @@ def main():
     #Create v_val
     
     v_val=create_v(validationset_words,all_words)
-    v_val = vstack((ones((1, v_val.shape[1])), v_val))
     
     #Create output vector y_val
     y_val=zeros((len(validationset_words),2))
@@ -135,8 +133,7 @@ def main():
     
 #--------------------BUILD SVM CLASSIFIER-------------------------
     print('Creating SVM Classifier') 
-    X = [[0, 0], [1, 1]]
-    y = [0, 1]
+
     clf = svm.SVC()
     clf.fit(X, y)  
 
