@@ -51,6 +51,11 @@ def clean_headline(headline,_set):
     return h_words
 
 def main():
+    print('test')
+    
+
+if __name__ == "__main__":
+    main()
     print('*** Part 1 running ***')    
     
     with open(os.getcwd()+'\Data\\real_train.pickle', 'rb') as handle:
@@ -85,7 +90,7 @@ def main():
     
     print('Creating input vectors') 
 #--------------------CREATE SETS,INPUTS,OUTPUTS-------------------------
-    print('creating network inputs')
+
     #First create trainingset
     trainingset=append(real_train_lines,fake_train_lines)
 
@@ -94,20 +99,17 @@ def main():
     for i in range(0,len(trainingset)):
         trainingset_words.append(clean_headline(trainingset[i],trainingset))
 
-    #Create input vector v: nxm=len(all_words) x count
+    #Create input vector x_train
 
-    v_train=create_v(trainingset_words,all_words)
-
+    x_train=create_v(trainingset_words,all_words)
+    x_train=x_train.T #since create_v was initially meant for p4
     
-    #Create output vector y
-    #y is output: jxm=2xm = #possible outputs (real or fake) x #examples 
-    y_train=zeros((len(trainingset_words),2))
+    #Create output vector y_train
+    y_train=zeros((len(trainingset_words)))
     for i in range(0,len(real_train_lines)):
-        y_train[i][0]=1 #real
+        y_train[i]=0 #real
     for i in range(len(real_train_lines),len(trainingset_words)):
-        y_train[i][1]=1 #fake
-
-    y_train=y_train.T #used because I did loop indices wrong
+        y_train[i]=1 #fake
     
     #Create validation set
     validationset=append(real_val_lines,fake_val_lines)
@@ -117,31 +119,42 @@ def main():
     for i in range(0,len(validationset)):
         validationset_words.append(clean_headline(validationset[i],trainingset))
         
-    #Create v_val
+    #Create x_val
     
-    v_val=create_v(validationset_words,all_words)
+    x_val=create_v(validationset_words,all_words)
+    x_val=x_val.T
     
     #Create output vector y_val
-    y_val=zeros((len(validationset_words),2))
+    y_val=zeros((len(validationset_words)))
     for i in range(0,len(real_val_lines)):
-        y_val[i][0]=1 #real
+        y_val[i]=0 #real
     for i in range(len(real_val_lines),len(validationset_words)):
-        y_val[i][1]=1 #fake
-        
-    y_val=y_val.T
+        y_val[i]=1 #fake
     
     
 #--------------------BUILD SVM CLASSIFIER-------------------------
     print('Creating SVM Classifier') 
 
     clf = svm.SVC()
-    clf.fit(X, y)  
+    clf.fit(x_train, y_train)  
 
+    print('Evaluating Performance')
+    train_performance=0
+    val_performance=0
     
+    #performance on training set:
+    predict=clf.predict(x_train)
+    for i in range(0,len(x_train)):
+        if y_train[i]==predict[i]:
+            train_performance=train_performance+1
+    train_performance=100*train_performance/len(x_train[:,0])   
+    print('Training performance is ',train_performance)
     
-    
-    print('*** Part 1 finished ***')    
-    
-
-if __name__ == "__main__":
-    main()
+    #performance on validation set:
+    predict=clf.predict(x_val)
+    for i in range(0,len(x_val)):
+        if y_val[i]==predict[i]:
+            val_performance=val_performance+1
+    val_performance=100*val_performance/len(x_val[:,0])
+    print('Validation performance is ',val_performance)
+    print('*** Part 1 finished ***')  
