@@ -48,6 +48,7 @@ def clean_headline(headline,_set):
 
     #remove any words in the headline which are not found in the training set:
     [h_words.remove(word) for word in h_words if word not in _set]
+
     return h_words
 
 def main():
@@ -100,7 +101,6 @@ if __name__ == "__main__":
         trainingset_words.append(clean_headline(trainingset[i],trainingset))
 
     #Create input vector x_train
-
     x_train=create_v(trainingset_words,all_words)
     x_train=x_train.T #since create_v was initially meant for p4
     
@@ -135,26 +135,31 @@ if __name__ == "__main__":
 #--------------------BUILD SVM CLASSIFIER-------------------------
     print('Creating SVM Classifier') 
 
-    clf = svm.SVC()
+    clf = svm.NuSVC(nu=0.5, kernel='sigmoid', degree=10, gamma='auto', coef0=0.0, 
+                    shrinking=True, probability=True, tol=0.001,
+                    cache_size=200, class_weight=None, verbose=False,
+                    max_iter=-1, decision_function_shape='ovr',
+                    random_state=None
+                )
     clf.fit(x_train, y_train)  
 
     print('Evaluating Performance')
-    train_performance=0
-    val_performance=0
     
     #performance on training set:
     predict=clf.predict(x_train)
-    for i in range(0,len(x_train)):
+    train_performance=0
+    for i in range(x_train.shape[0]):
         if y_train[i]==predict[i]:
             train_performance=train_performance+1
-    train_performance=100*train_performance/len(x_train[:,0])   
+    train_performance=100*train_performance/x_train.shape[0]
     print('Training performance is ',train_performance)
     
     #performance on validation set:
     predict=clf.predict(x_val)
-    for i in range(0,len(x_val)):
+    val_performance=0
+    for i in range(x_val.shape[0]):
         if y_val[i]==predict[i]:
             val_performance=val_performance+1
-    val_performance=100*val_performance/len(x_val[:,0])
+    val_performance=100*val_performance/x_val.shape[0]
     print('Validation performance is ',val_performance)
     print('*** Part 1 finished ***')  
