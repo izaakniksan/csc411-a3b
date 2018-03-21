@@ -4,40 +4,81 @@ import os
 import random
 import collections
 import pickle
-import numpy as np
+from numpy import *
 from sklearn.pipeline import Pipeline
 from math import *
 from sklearn import svm
 from sklearn.linear_model import SGDClassifier
 
+def create_v(set_words,all_words):
+    '''
+    Create input and expected output vectors for logistic regression. 
+    set_words is array of cleaned headlines (which are separated into words)
+    count=m
+    len(all_words)=n
+    all_words is all the words that appear in the trainingset
+    '''
+    #all_words=real_train.keys()
+    
+    #creating input vector and output vectors
+    #v is input: nxm
+ 
+    count=len(set_words)
+    #create input:
+    v=zeros((len(all_words),count)) 
+    i=0
+    for headline in set_words:
+        for j in range(0,len(all_words)):
+            if all_words[j] in headline:
+                v[j][i]=1
+            else:
+                v[j][i]=0
+        i=i+1
+    return v
+
+def clean_headline(headline,_set):
+    #takes in a headline and removed duplicated words and any words not found 
+    #in the set. Outputs a list of these words.
+    line=headline
+    line=line.rstrip('\n')
+    temp=line.split(' ') 
+    
+    #remove any duplicated words in the headline:
+    h_words=[] # h_words contains all the words in the headline
+    [h_words.append(item) for item in temp if item not in h_words]
+
+    #remove any words in the headline which are not found in the training set:
+    [h_words.remove(word) for word in h_words if word not in _set]
+    return h_words
+
 def main():
     print('*** Part 1 running ***')    
     
-    with open('real_train.pickle', 'rb') as handle:
+    with open(os.getcwd()+'\Data\\real_train.pickle', 'rb') as handle:
         real_train = pickle.load(handle)  
-    with open('real_val.pickle', 'rb') as handle:
+    with open(os.getcwd()+'\Data\\real_val.pickle', 'rb') as handle:
         real_val = pickle.load(handle)   
-    with open('real_test.pickle', 'rb') as handle:
+    with open(os.getcwd()+'\Data\\real_test.pickle', 'rb') as handle:
         real_test = pickle.load(handle)
-    with open('fake_train.pickle', 'rb') as handle:
+    with open(os.getcwd()+'\Data\\fake_train.pickle', 'rb') as handle:
         fake_train = pickle.load(handle)
-    with open('fake_val.pickle', 'rb') as handle:
+    with open(os.getcwd()+'\Data\\fake_val.pickle', 'rb') as handle:
         fake_val = pickle.load(handle)
-    with open('fake_test.pickle', 'rb') as handle:
+    with open(os.getcwd()+'\Data\\fake_test.pickle', 'rb') as handle:
         fake_test = pickle.load(handle)
-    with open('counts.pickle', 'rb') as handle:
+    with open(os.getcwd()+'\Data\\counts.pickle', 'rb') as handle:
         counts = pickle.load(handle)
-    with open('real_train_lines.pickle', 'rb') as handle:
+    with open(os.getcwd()+'\Data\\real_train_lines.pickle', 'rb') as handle:
         real_train_lines = pickle.load(handle)
-    with open('real_val_lines.pickle', 'rb') as handle:
+    with open(os.getcwd()+'\Data\\real_val_lines.pickle', 'rb') as handle:
         real_val_lines = pickle.load(handle)
-    with open('real_test_lines.pickle', 'rb') as handle:
+    with open(os.getcwd()+'\Data\\real_test_lines.pickle', 'rb') as handle:
         real_test_lines = pickle.load(handle)
-    with open('fake_train_lines.pickle', 'rb') as handle:
+    with open(os.getcwd()+'\Data\\fake_train_lines.pickle', 'rb') as handle:
         fake_train_lines = pickle.load(handle)
-    with open('fake_val_lines.pickle', 'rb') as handle:
+    with open(os.getcwd()+'\Data\\fake_val_lines.pickle', 'rb') as handle:
         fake_val_lines = pickle.load(handle)
-    with open('fake_test_lines.pickle', 'rb') as handle:
+    with open(os.getcwd()+'\Data\\fake_test_lines.pickle', 'rb') as handle:
         fake_test_lines = pickle.load(handle)
 
     all_words=[]
