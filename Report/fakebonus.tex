@@ -1,4 +1,7 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% Authors: Izaak Niksan - 1002659777
+%          Tyler Gamvrelis - 1002138803
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Programming/Coding Assignment
 % LaTeX Template
 %
@@ -18,7 +21,7 @@
 % CONFIGURATION" section.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+% 
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
@@ -34,18 +37,7 @@
 \usepackage{listings} % Required for insertion of code
 \usepackage{courier} % Required for the courier font
 \usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
-\usepackage{enumerate}
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{array}
-\usepackage{forloop}
-\usepackage{alphalph}
-\usepackage{listings}
-\usepackage{booktabs}
-\renewcommand*{\thesubfigure}{%
-\alphalph{\value{subfigure}}%
-}%
-% !TeX spellcheck = en_GB
+\graphicspath{ {latex_images/} }
 
 % Margins
 \topmargin=-0.45in
@@ -59,8 +51,8 @@
 
 % Set up the header and footer
 \pagestyle{fancy}
-\lhead{\hmwkAuthorName} % Top left header
-\chead{\hmwkClass\ (\hmwkClassTime): \hmwkTitle} % Top center head
+\lhead{Gamvrelis and Niksan} % Top left header
+\rhead{\hmwkClass\ (\hmwkClassTime): \hmwkTitle} % Top center head
 %\rhead{\firstxmark} % Top right header
 \lfoot{\lastxmark} % Bottom left footer
 \cfoot{} % Bottom center footer
@@ -75,28 +67,40 @@
 %----------------------------------------------------------------------------------------
 
 \definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0} % This is the color used for comments
-\lstset{language=Python,
-frame=single, % Single frame around code
-basicstyle=\small\ttfamily, % Use small true type font
-keywordstyle=[1]\color{Blue}\bf,
-keywordstyle=[2]\color{Purple},
-keywordstyle=[3]\color{Blue}\underbar,                            
-commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyDarkGreen}\small,
-stringstyle=\color{Purple},
-showstringspaces=false,
-tabsize=5,
-%
-% Put standard functions not included in the default language here
-morekeywords={rand},
-%
-% Put function parameters here
-morekeywords=[2]{on, off, interp},
-%
-morecomment=[l][\color{Blue}]{...},
-numbers=left, % Line numbers on left
-firstnumber=1, % Line numbers start with line 1
-numberstyle=\tiny\color{Blue}, % Line numbers are blue and small
-stepnumber=1
+\lstloadlanguages{Perl} % Load Perl syntax for listings, for a list of other languages supported see: ftp://ftp.tex.ac.uk/tex-archive/macros/latex/contrib/listings/listings.pdf
+\lstset{language=Perl, % Use Perl in this example
+        frame=single, % Single frame around code
+        basicstyle=\small\ttfamily, % Use small true type font
+        keywordstyle=[1]\color{Blue}\bf, % Perl functions bold and blue
+        keywordstyle=[2]\color{Purple}, % Perl function arguments purple
+        keywordstyle=[3]\color{Blue}\underbar, % Custom functions underlined and blue
+        identifierstyle=, % Nothing special about identifiers                                         
+        commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyDarkGreen}\small, % Comments small dark green courier font
+        stringstyle=\color{Purple}, % Strings are purple
+        showstringspaces=false, % Don't put marks in string spaces
+        tabsize=5, % 5 spaces per tab
+        %
+        % Put standard Perl functions not included in the default language here
+        morekeywords={rand},
+        %
+        % Put Perl function parameters here
+        morekeywords=[2]{on, off, interp},
+        %
+        % Put user defined functions here
+        morekeywords=[3]{test},
+       	%
+        morecomment=[l][\color{Blue}]{...}, % Line continuation (...) like blue comment
+        numbers=left, % Line numbers on left
+        firstnumber=1, % Line numbers start with line 1
+        numberstyle=\tiny\color{Blue}, % Line numbers are blue and small
+        stepnumber=5 % Line numbers go in steps of 5
+}
+
+% Creates a new command to include a perl script, the first parameter is the filename of the script (without .pl), the second parameter is the caption
+\newcommand{\perlscript}[2]{
+\begin{itemize}
+\item[]\lstinputlisting[caption=#2,label=#1]{#1.pl}
+\end{itemize}
 }
 
 %----------------------------------------------------------------------------------------
@@ -118,10 +122,10 @@ stepnumber=1
 
 \setcounter{secnumdepth}{0} % Removes default section numbers
 \newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
-\setcounter{homeworkProblemCounter}{0}
+\setcounter{homeworkProblemCounter}{-1}
 
 \newcommand{\homeworkProblemName}{}
-\newenvironment{homeworkProblem}[1][Part \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
 \stepcounter{homeworkProblemCounter} % Increase counter for number of problems
 \renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
 \section{\homeworkProblemName} % Make a section in the document with the custom problem count
@@ -142,7 +146,7 @@ stepnumber=1
 }{
 \enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
 }
-\setlength\parindent{0pt}
+
 %----------------------------------------------------------------------------------------
 %	NAME AND CLASS SECTION
 %----------------------------------------------------------------------------------------
@@ -150,8 +154,8 @@ stepnumber=1
 \newcommand{\hmwkTitle}{Project\ \#3 Bonus} % Assignment title
 \newcommand{\hmwkDueDate}{Saturday,\ March\ 24,\ 2018} % Due date
 \newcommand{\hmwkClass}{CSC411} % Course/class
-\newcommand{\hmwkClassTime}{L0101} % Class/lecture time
-\newcommand{\hmwkAuthorName}{Izaak Niksan \& Tyler Gamvrelis} % Your name
+\newcommand{\hmwkClassTime}{Thursday 6-9 pm} % Class/lecture time
+\newcommand{\hmwkAuthorName}{Tyler Gamvrelis and Izaak Niksan} % Your name
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
@@ -166,7 +170,7 @@ stepnumber=1
 }
 
 \author{\textbf{\hmwkAuthorName}}
-%\date{} % Insert date here if you want it to appear below your name
+\date{} % Insert date here if you want it to appear below your name
 
 %----------------------------------------------------------------------------------------
 
@@ -174,38 +178,231 @@ stepnumber=1
 
 \maketitle
 \clearpage
-%----------------------------------------------------------------------------------------
-%	PROBLEM 1
-%-------------------------------------------------------------------------------------
-\clearpage
-\section{Foreword}
-TODO: In this project,...
-\newline
-\newline
-TODO: Describe parts here...
-\newline
-\newline
-\textbf{System Details for Reproducibility:}
+\textbf{Part 1)}\\
+\textit{a)} For this bonus, support vector machines were investigated in the context of classifying fake news. First, as a reference on how well SVMs performed relative to the classifiers which were already tested, the same datasets as before were used. The words contained in the training, validation, and test sets (70\%,15\%, and 15\% respectively) were used to create input vectors, such that a 1 corresponded to a word being in the headline and a 0 corresponded to a word not being present in the headline. This is the same input format used for logistic regression. The nu support vector classifier SVM was built using sklearn; first, the default parameters were used and yielded comparable performances to what was seen by the logistic regression classifier. 94\% of the training set and 76\% of the validation set were correctly classified. Then one parameter of the sklearn SVM implementation, specifically nu, was varied. nu was varied as it directly controlled the fraction of margin errors, and thus how much the model was forced to fit the training data. It was iteratively increased from 0.1 to 1 in increments of 0.1; however, it was found that values above 0.7 prevented the classifier from being built. Each of the possible kernels for the nu support vector classifier was tried in this manner, but the radial basis function kernel yielded the best results. In this way, the kernel was selected using cross-validation.\\
+
+By testing the performance on the validation set, it was determined that the ideal value of nu was 0.5 (which was the same default value as before). The worst value of nu was 0.1, yielding performances of 74\% and 66\% on the training and validation sets respectively. Listing 1 contains part of the code used for tuning the parameters.
+
+\begin{lstlisting}[language=Python, caption=Optimizing the sklearn SVM implementation]
+
+    print('Tuning Performance by varying nu: \n')
+    max_train_perf=0
+    max_train_nu=-1
+    max_val_perf=0
+    max_val_nu=-1
+    for i in range(1,8): #since nu of 0.8 to 1.0 are 'infeasible'
+        nu= i/10
+        
+        clf = svm.nuSVC(nu=nu, kernel='sigmoid', degree=10, gamma='auto', coef0=0.0, 
+                        shrinking=True, probability=True, tol=0.001,
+                        cache_size=200, class_weight=None, verbose=False,
+                        max_iter=-1, decision_function_shape='ovr',
+                        random_state=None
+                    )
+        clf.fit(x_train, y_train) 
+        
+        #performance on training set:
+        predict=clf.predict(x_train)
+        train_performance=0
+        for i in range(x_train.shape[0]):
+            if y_train[i]==predict[i]:
+                train_performance=train_performance+1
+        train_performance=100*train_performance/x_train.shape[0]
+        print('Training performance for nu =',nu,'is ',train_performance)
+        if train_performance>max_train_perf:
+            max_train_perf=train_performance
+            max_train_nu=nu
+            
+        #performance on validation set:
+        predict=clf.predict(x_val)
+        val_performance=0
+        for i in range(x_val.shape[0]):
+            if y_val[i]==predict[i]:
+                val_performance=val_performance+1
+        val_performance=100*val_performance/x_val.shape[0]
+        print('Validation performance for nu =',nu,'is ',val_performance)
+        if val_performance>max_val_perf:
+            max_val_perf=val_performance
+            max_val_nu=nu
+
+\end{lstlisting}
+
+Once this optimal value for nu was determined, the value for gamma was varied. For the radial basis function, gamma is inversely proportional to the variance of the gaussian used to compute the similarity measure. Table~\ref{tab:gamma} displays the training and validation accuracy obtained for 4 settings of gamma. Note that when \texttt{gamma = 'auto'} was used, gamma was tuned automatically to $2.07 \times 10^{-4}$.
+
+\begin{table}[!ht]
+    \centering
+    \caption{Performance for 4 gamma values, with all other parameters held constant}
+    \label{tab:gamma}
+    \begin{tabular}{ | {2.54 cm} | {2.54 cm} | {2.54 cm} | {2.54 cm} | }
+		\hline
+		\textbf{gamma} & \textbf{Training \%} & \textbf{Validation \%} & \textbf{\# support vectors} \\
+		\hline
+		'auto' & 93.7 & 76.9 & 1438 \\
+		\hline
+		$1\times10^{-6}$ & 69.5 & 65.3 & 1144 \\
+		\hline
+		1 & 99.8 & 61.0 & 2237 \\
+		\hline
+		100 & 99.96 & 60.6 & 2279 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Thus, gamma was left set to auto. In summary, the optimization parameters used to train the classifier were:
 \begin{itemize}
-	\item Python 2.7.14
-	\item Libraries:
-	\begin{itemize}
-		\item numpy
-		\item matplotlib
-		\item os
-		\item scipy
-		\item sklearn
-	\end{itemize}
+    \item nu = 0.5
+    \item radial basis function kernel
+    \item gamma = $2.07 \times 10^{-4}$ 
+    \item decision function shape: one-versus-rest
+    \item probability estimates: enabled
+    \item everything else: default
 \end{itemize}
+
+Next, as an interesting further test on this classifier's performance, the top 5 fake headlines from \textit{ABC News} were inputted into the SVM and evaluated. These headlines (available at http://abcnews4.com/news/nation-world/photo-gallery-top-fake-news-headlines-of-the-week) were:\\\\
+"Trump just ended Obama's vacation scam and sent him a bill you have to see to believe"\\\\
+"NASA confirms earth will experience 15 days of darkness in November 2017"\\\\
+"Furious Chelsea Clinton thrown to the floor and handcuffed after senator Lindsay scandal linked to Clinton foundation"\\\\
+"Cannibals arrested in Florida claim eating human flesh cures diabetes and depression"\\\\
+"Democrat Maxine Waters has shown up to only 10\% of congressional meetings for 35 years"\\\\
+3 of the 5 of these were correctly classified, which is not an ideal performance. However, it should be noted that the provided dataset seemed to mainly contain information regarding politics, while the \textit{ABC} headlines were not restricted in this way. Furthermore, if one were to do further investigation into classifying fake news, it is advised that a more comprehensive dataset comprised of headlines from other sources is used to train the classifier.\\
+
+\textit{b)}
+A support vector machine is a supervised learning algorithm that performs classification by finding the hyperplane that separates the classes with maximum margin. The \textit{support vectors} are the data points constraining the width of the margin and thus defining the hyperplane, i.e. they are the training examples closest to the hyperplane. The training procedure selects the best possible hyperplane (and thus support vectors) given the training data and the optimization parameters. Often, data might not be linearly separable, so the kernel trick is employed. The kernel trick is a technique by which the problem of linearly separating the data is solved in a higher-dimensional implicit feature space. This space is called implicit because a given data point $x$ only ever exists in this space in the context of computing the kernel $\phi(x)$, which takes the form of an inner product. For this project, the radial basis function kernel was used, which theoretically can map into an infinite-dimensional feature space. To complete the description of how this method works, new data would simply be classified based on which ``side" of the hyperplane they were on, using the same hypothesis function that was employed during training, which in general can be expressed as in eq.~\ref{eq:hypothesis}.
+\begin{equation}\label{eq:hypothesis}
+h(x) = sgn(\sum_{i}^{n} y_i \alpha_i K(x_i, x) + b)
+\end{equation}
+where:
+\begin{itemize}
+    \item $sgn$ is the signum function
+    \item $y_i$ is the class label for the $i^{th}$ training example $\{1, -1\}^n$
+    \item $\alpha_i$ is the weight of the $i^{th}$ training example, indicating how much its restriction of the hyperplane should be taken into account when classifying
+    \item $K(,) = \phi(x_i) \cdot \phi(x)$ is the kernel function, which was selected to be a radial basis function
+    \item $b$ is the bias, which is an intercept for the hyperplane
+\end{itemize}
+
+With this in mind, the support vectors were observed using \texttt{clf.support\_vectors\_}, where \texttt{clf} was the trained classifier instance. Interestingly, as seen in Table~\ref{tab:gamma}, there were 1438 support vectors in the most optimal model found, which means 63\% of the training data was necessary to constrain the hyperplane.
+\newline
+\newline
+Furthermore, the product $y_i \alpha_i$ could be viewed for each support vector by using the python line \texttt{clf.support\_vectors\_}. The mean of this quantity was $0$ and the standard deviation was $786.3$. Some more statistics are presented in Table~\ref{tab:coefficients}. Note that these were rounded to the nearest whole number where necessary. Furthermore, it is emphasized that the support vectors with positive coefficients corresponded to words that were deemed important for classifying news as real, and the support vectors with negative coefficients corresponded to words that were deemed important for classifying news as fake.
+
+\begin{table}[!ht]
+    \centering
+    \caption{Descriptive statistics for support vector coefficients}
+    \label{tab:gamma}
+    \begin{tabular}{ | {3 cm} | {2.54 cm} | {2.54 cm} | {2.54 cm} | {2.54 cm} | {2.54 cm} | {2.54 cm} |}
+		\hline
+		{} & \textbf{Count} & \textbf{Mean} & \textbf{Median} & \textbf{Std. dev} & \textbf{Max} & \textbf{Min} \\
+		\hline
+		Positive coefficients & 756 & 703 & 930 & 276 & 930 & 5.4 \\
+		\hline
+		Negative coefficients & 682 & -779 & -930 & 253 & -1.4 & -930\\
+		\hline
+	\end{tabular}
+\end{table}
+
+Due to the fact that the coefficients for many support vectors saturated to the maximum and minimum values, it was not entirely feasible to interpret any particular words as being the most indicative of real or fake news. However, 5 words appearing in ``real news" support vectors with the most positive coefficients and 5 words appearing in ``fake news" support vectors with the most negative coefficients (where ``real" implies a positive coefficient multiplying the support vector and ``fake" implies a negative sign multiplying the support vector) were determined to be as follows:
+
+\begin{enumerate}
+    \item Real news:
+    \begin{itemize}
+        \item mccain
+        \item shows
+        \item trump
+        \item says
+        \item jerusalem
+    \end{itemize}
+    \item Fake news:
+    \begin{itemize}
+        \item trump
+        \item ignores
+        \item gain
+        \item in
+        \item the
+    \end{itemize}
+\end{enumerate}
+
+Listing 2 presents the code used to determine the statistics and words.
+
+\begin{lstlisting}[language=Python, caption=Statistics and Important Words]
+
+    import numpy as np
+    print("Number of support vectors: ")
+    print(clf.support_vectors_.shape)
+    
+    c = clf._dual_coef_
+    v = clf.support_vectors_
+    print("Mean of dual coefficients: ")
+    print(np.mean(c))
+    print("Std. dev of dual coefficients: ")
+    print(np.sqrt(np.var(c)))
+
+    cpos = list()
+    cneg = list()
+    cposPositional = c.copy()
+    cnegPositional = c.copy()
+    for i in range(c.shape[1]):
+        # Don't need to worry about coefficients equal to 0 as they would hold no
+        # weight and thus aren't important at all
+        if c[0, i] > 0:
+            cpos.append(c[0, i])
+            cposPositional[0, i] = c[0, i]
+            cnegPositional[0, i] = 0
+        else:
+            cneg.append(c[0, i])
+            cnegPositional[0, i] = c[0, i]
+            cposPositional[0, i] = 0
+    cpos = np.array(cpos)
+    cneg = np.array(cneg)
+    
+    print("Count of positive coefficients: ", np.count_nonzero(cpos))
+    print("Mean of positive coefficients: ", np.mean(cpos))
+    print("Median of positive coefficients: ", np.median(cpos))
+    print("Std. dev of positive coefficients: ", np.sqrt(np.var(cpos)))
+    print("Max of positive coefficients: ", np.max(cpos))
+    print("Min of positive coefficients: ", np.min(cpos))
+    print("Example of 5 words important for real news")
+    cpp = cposPositional.copy()
+    words = list()
+    for k in range(5):
+        idx = np.argmax(cpp)
+        cpp[0, idx] = 0
+        a = 0
+        while(True):
+            a = np.argmax(v[[idx],:])
+            w = all_words[a]
+            if w in words:
+                v[[idx], a] = 0
+            else:
+                words.append(w)
+                break
+        print(all_words[a])
+    
+    print("Count of negative coefficients: ", np.count_nonzero(cneg))
+    print("Mean of negative coefficients: ", np.mean(cneg))
+    print("Median of negative coefficients: ", np.median(cneg))
+    print("Std. dev of negative coefficients: ", np.sqrt(np.var(cneg)))
+    print("Max of negative coefficients: ", np.max(cneg))
+    print("Min of negative coefficients: ", np.min(cneg))
+    cnp = cnegPositional.copy()
+    words = list()
+    for k in range(5):
+        idx = np.argmin(cnp)
+        cnp[0, idx] = 0
+        a = 0
+        while(True):
+            a = np.argmax(v[[idx],:])
+            w = all_words[a]
+            if w in words:
+                v[[idx], a] = 0
+            else:
+                words.append(w)
+                break
+        print(all_words[a])
+
+\end{lstlisting}
 \clearpage
 
-
-% Part 1
-\begin{homeworkProblem}
-Words here...
-
-\clearpage
-\end{homeworkProblem}
-
-
+\textbf{Part 2)}\\
+Omitted
+%----------------------------------------------------------------------------------------
 \end{document}
